@@ -37,7 +37,7 @@ We also recorded a webinar which presents most of the plugin features, including
 
 <div align="center">
     
-[![Webinar](https://img.youtube.com/vi/Nk8fKA48t_Y/0.jpg)](https://www.youtube.com/watch?v=Nk8fKA48t_Y)
+[![Webinar](https://img.youtube.com/vi/Nk8fKA48t_Y/0.jpg)](https://www.youtube.com/watch?v=Nk8fKA48t_Y) [![GuardRails badge](https://badges.production.guardrails.io/johnkrovitch/SyliusCmsPlugin.svg)](https://www.guardrails.io)
 
 </div>
 
