@@ -20,29 +20,13 @@ use Tests\BitBag\SyliusCmsPlugin\Behat\Service\RandomStringGeneratorInterface;
 
 final class FrequentlyAskedQuestionContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
-
-    /** @var RandomStringGeneratorInterface */
-    private $randomStringGenerator;
-
-    /** @var FactoryInterface */
-    private $frequentlyAskedQuestionFactory;
-
     public function __construct(
-        SharedStorageInterface $sharedStorage,
-        RandomStringGeneratorInterface $randomStringGenerator,
-        FactoryInterface $frequentlyAskedQuestionFactory,
-        FrequentlyAskedQuestionRepositoryInterface $frequentlyAskedQuestionRepository,
-        ) {
-        $this->sharedStorage = $sharedStorage;
-        $this->randomStringGenerator = $randomStringGenerator;
-        $this->frequentlyAskedQuestionFactory = $frequentlyAskedQuestionFactory;
-        $this->frequentlyAskedQuestionRepository = $frequentlyAskedQuestionRepository;
+        private SharedStorageInterface $sharedStorage,
+        private RandomStringGeneratorInterface $randomStringGenerator,
+        private FactoryInterface $frequentlyAskedQuestionFactory,
+        private FrequentlyAskedQuestionRepositoryInterface $frequentlyAskedQuestionRepository,
+    ) {
     }
-
-    /** @var FrequentlyAskedQuestionRepositoryInterface */
-    private $frequentlyAskedQuestionRepository;
 
     /**
      * @Given the store has a frequently asked question
@@ -94,7 +78,7 @@ final class FrequentlyAskedQuestionContext implements Context
         int $position = null,
         bool $prefixQuestionWithPosition = false,
         ChannelInterface $channel = null,
-        ): FrequentlyAskedQuestionInterface {
+    ): FrequentlyAskedQuestionInterface {
         /** @var FrequentlyAskedQuestionInterface $frequentlyAskedQuestion */
         $frequentlyAskedQuestion = $this->frequentlyAskedQuestionFactory->createNew();
 

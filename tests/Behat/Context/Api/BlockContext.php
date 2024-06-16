@@ -18,16 +18,10 @@ use Webmozart\Assert\Assert;
 
 final class BlockContext implements Context
 {
-    private ApiClientInterface $apiClient;
-
-    private ResponseCheckerInterface $responseChecker;
-
     public function __construct(
-        ApiClientInterface $apiClient,
-        ResponseCheckerInterface $responseChecker,
+        private ApiClientInterface $apiClient,
+        private ResponseCheckerInterface $responseChecker,
     ) {
-        $this->apiClient = $apiClient;
-        $this->responseChecker = $responseChecker;
     }
 
     /**
@@ -52,8 +46,8 @@ final class BlockContext implements Context
     }
 
     /**
-     * @Then I should see block with code :block
      * @Given I view block with code :block
+     * @Then I should see block with code :block
      */
     public function iShouldSeeBlockWithCode(string $code): void
     {

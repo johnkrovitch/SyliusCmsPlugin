@@ -19,16 +19,10 @@ use Webmozart\Assert\Assert;
 
 final class MediaContext implements Context
 {
-    private ApiClientInterface $apiClient;
-
-    private ResponseCheckerInterface $responseChecker;
-
     public function __construct(
-        ApiClientInterface $apiClient,
-        ResponseCheckerInterface $responseChecker,
+        private ApiClientInterface $apiClient,
+        private ResponseCheckerInterface $responseChecker,
     ) {
-        $this->apiClient = $apiClient;
-        $this->responseChecker = $responseChecker;
     }
 
     /**
@@ -53,8 +47,8 @@ final class MediaContext implements Context
     }
 
     /**
-     * @Then I should see media with code :media
      * @Given I view media with code :media
+     * @Then I should see media with code :media
      */
     public function iShouldSeeTheMedia(MediaInterface $media): void
     {

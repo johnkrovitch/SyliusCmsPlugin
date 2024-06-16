@@ -19,16 +19,10 @@ use Webmozart\Assert\Assert;
 
 final class SectionContext implements Context
 {
-    private ApiClientInterface $apiClient;
-
-    private ResponseCheckerInterface $responseChecker;
-
     public function __construct(
-        ApiClientInterface $apiClient,
-        ResponseCheckerInterface $responseChecker,
+        private ApiClientInterface $apiClient,
+        private ResponseCheckerInterface $responseChecker,
     ) {
-        $this->apiClient = $apiClient;
-        $this->responseChecker = $responseChecker;
     }
 
     /**
@@ -53,8 +47,8 @@ final class SectionContext implements Context
     }
 
     /**
-     * @Then I should see section with code :section
      * @Given I view section with code :section
+     * @Then I should see section with code :section
      */
     public function iShouldSeeSectionWithCode(SectionInterface $section): void
     {

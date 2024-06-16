@@ -20,28 +20,12 @@ use Tests\BitBag\SyliusCmsPlugin\Behat\Service\RandomStringGeneratorInterface;
 
 final class BlockContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
-
-    /** @var RandomStringGeneratorInterface */
-    private $randomStringGenerator;
-
-    /** @var FactoryInterface */
-    private $blockFactory;
-
-    /** @var BlockRepositoryInterface */
-    private $blockRepository;
-
     public function __construct(
-        SharedStorageInterface $sharedStorage,
-        RandomStringGeneratorInterface $randomStringGenerator,
-        FactoryInterface $blockFactory,
-        BlockRepositoryInterface $blockRepository,
-        ) {
-        $this->sharedStorage = $sharedStorage;
-        $this->randomStringGenerator = $randomStringGenerator;
-        $this->blockFactory = $blockFactory;
-        $this->blockRepository = $blockRepository;
+        private SharedStorageInterface $sharedStorage,
+        private RandomStringGeneratorInterface $randomStringGenerator,
+        private FactoryInterface $blockFactory,
+        private BlockRepositoryInterface $blockRepository,
+    ) {
     }
 
     /**
@@ -79,7 +63,7 @@ final class BlockContext implements Context
         ?string $code = null,
         ?string $content = null,
         ChannelInterface $channel = null,
-        ): BlockInterface {
+    ): BlockInterface {
         /** @var BlockInterface $block */
         $block = $this->blockFactory->createNew();
 

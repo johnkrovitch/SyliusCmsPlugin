@@ -14,9 +14,9 @@ use Behat\Behat\Context\Context;
 use BitBag\SyliusCmsPlugin\Entity\Media;
 use BitBag\SyliusCmsPlugin\Entity\MediaInterface;
 use BitBag\SyliusCmsPlugin\Entity\PageInterface;
+use BitBag\SyliusCmsPlugin\MediaProvider\ProviderInterface;
 use BitBag\SyliusCmsPlugin\Repository\PageRepositoryInterface;
 use BitBag\SyliusCmsPlugin\Repository\SectionRepositoryInterface;
-use BitBag\SyliusCmsPlugin\Uploader\MediaUploaderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Formatter\StringInflector;
@@ -28,48 +28,16 @@ use Tests\BitBag\SyliusCmsPlugin\Behat\Service\RandomStringGeneratorInterface;
 
 final class PageContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
-
-    /** @var RandomStringGeneratorInterface */
-    private $randomStringGenerator;
-
-    /** @var FactoryInterface */
-    private $pageFactory;
-
-    /** @var PageRepositoryInterface */
-    private $pageRepository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var ProductRepositoryInterface */
-    private $productRepository;
-
-    /** @var SectionRepositoryInterface */
-    private $sectionRepository;
-
-    /** @var MediaUploaderInterface */
-    private $mediaUploader;
-
     public function __construct(
-        SharedStorageInterface $sharedStorage,
-        RandomStringGeneratorInterface $randomStringGenerator,
-        FactoryInterface $pageFactory,
-        PageRepositoryInterface $pageRepository,
-        EntityManagerInterface $entityManager,
-        ProductRepositoryInterface $productRepository,
-        SectionRepositoryInterface $sectionRepository,
-        MediaUploaderInterface $mediaUploader,
-        ) {
-        $this->sharedStorage = $sharedStorage;
-        $this->randomStringGenerator = $randomStringGenerator;
-        $this->pageFactory = $pageFactory;
-        $this->pageRepository = $pageRepository;
-        $this->entityManager = $entityManager;
-        $this->productRepository = $productRepository;
-        $this->sectionRepository = $sectionRepository;
-        $this->mediaUploader = $mediaUploader;
+        private SharedStorageInterface $sharedStorage,
+        private RandomStringGeneratorInterface $randomStringGenerator,
+        private FactoryInterface $pageFactory,
+        private PageRepositoryInterface $pageRepository,
+        private EntityManagerInterface $entityManager,
+        private ProductRepositoryInterface $productRepository,
+        private SectionRepositoryInterface $sectionRepository,
+        private ProviderInterface $imageProvider,
+    ) {
     }
 
     /**
@@ -225,7 +193,7 @@ final class PageContext implements Context
         ?string $name = null,
         ?string $content = null,
         ChannelInterface $channel = null,
-        ): PageInterface {
+    ): PageInterface {
         /** @var PageInterface $page */
         $page = $this->pageFactory->createNew();
 
@@ -265,7 +233,7 @@ final class PageContext implements Context
 
         $image->setFile($uploadedImage);
 
-        $this->mediaUploader->upload($image, '/tests/Application/Resources/images/');
+        $this->imageProvider->upload($image);
 
         return $image;
     }
